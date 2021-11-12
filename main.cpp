@@ -8,6 +8,7 @@ int main(int argc, char** argv){
 	char c;
 	while(!cin.eof()){
 		cin>>c;
+		//cout<<c;  //check input
 		if(c<'A'||c>'Z') {
 			cout<<"Invalid input character"<<endl;
 			exit(INVALID_INPUT_CHARACTER);

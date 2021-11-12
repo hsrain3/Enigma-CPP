@@ -31,6 +31,7 @@ void Rotor::inputRotor(const char* filename){
 			cout<<"Invalid index in rotor config"<<endl;
 			exit(INVALID_INDEX);
 		}
+		tmp.insert(a);
 		forwardMap[i] = a;
 		backwardMap[a] = i; //
 		i ++;
@@ -43,7 +44,7 @@ void Rotor::inputRotor(const char* filename){
 			cout<<"Invalid index in rotor config"<<endl;
 			exit(INVALID_INDEX);
 		}
-		notchPos[a] = 1;
+		notchPos[(a-absPos+length)%length] = 1;
 		
 	}
 
