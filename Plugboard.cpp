@@ -15,8 +15,10 @@ void Plugboard::inputMap(const char* filename){
 	in.open(filename);
 	int a,b;
 	in>>a;
-	if(!in.eof()) in>>b;
-	else {
+	if(in.eof()) return;
+	in>>b;
+	
+	if(in.eof()) {
 		cout<<"Incorrect number of plugboard parameters"<<endl;
 		exit(INCORRECT_NUMBER_OF_PLUGBOARD_PARAMETERS);
 	}
