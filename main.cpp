@@ -6,13 +6,15 @@ using namespace std;
 int main(int argc, char** argv){
 	Enigma enigma(argc,argv);
 	char c;
-	while(cin>>c){
+	while(!cin.eof()){
+		cin>>c;
 		if(c<'A'||c>'Z') {
 			cout<<"Invalid input character"<<endl;
 			exit(INVALID_INPUT_CHARACTER);
 		}
-		char res = enigma.encrypt(c);
-		cout<<res;
+		c = enigma.encrypt(c);
+		cout<<c;
+		cin>>ws;
 	}
 	cout<<endl;
 	exit(NO_ERROR);

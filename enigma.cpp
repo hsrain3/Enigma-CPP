@@ -29,7 +29,6 @@ Enigma::Enigma(int argc,char** argv){
 		rotor.inputRotor(argv[i]);
 		rotors.push_back(rotor);
 
-
 	}	
 }
 Enigma::~Enigma(){}
@@ -41,25 +40,27 @@ void Enigma::configRotorPos(const char* filename){
 	}
 	ifstream in;
 	in.open(filename);
-	for(int i = 0;i < rotors.size();i ++){
-		if(in.eof()) {
-			cout<<"No rotor starting position"<<endl;
-			exit(NO_ROTOR_STARTING_POSITION);
-		}
-		int tmp;
-		in>>tmp;
+	int tmp;
+	in>>tmp;
+	while(!in.eof()){	
 		if(tmp <0 ||tmp > 25){
 			cout<<"Invalid index in"<<endl;
 			exit(INVALID_INDEX);
 		}
 		rotorPos.push_back(tmp);
+		in>>tmp;
 	}
 	in.close();
 }
 char Enigma::encrypt(char letter){
 	int l = letter - 'A';
-	//plugboard	
-	//
+	//rotate first
+	rotors[rotorNumber-1].rotate();
+	for(int i = rotorNumber - 2;i >= 0;i --){
+		if(rotors[i+1].rotateNext()) rotors[i].rotate();
+		else break;
+	}
+	//plugboard
 	int tmp = plugboard.getOutput(l);
 	for(int i = rotorNumber - 1;i >= 0;i --){
 		tmp = rotors[i].getOutputForward(tmp);
@@ -69,12 +70,7 @@ char Enigma::encrypt(char letter){
 		tmp = rotors[i].getOutputBackward(tmp);
 	}
 	tmp = plugboard.getOutput(tmp);
-	//rotate for next
-	rotors[rotorNumber-1].rotate();
-	for(int i = rotorNumber - 2;i >= 0;i --){
-		if(rotors[i+1].rotateNext()) rotors[i].rotate();
-		else break;
-	}
-	return tmp;
+	char d = tmp + 'A';
+	return d;
 
 }
