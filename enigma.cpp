@@ -55,10 +55,12 @@ void Enigma::configRotorPos(const char* filename){
 char Enigma::encrypt(char letter){
 	int l = letter - 'A';
 	//rotate first
-	rotors[rotorNumber-1].rotate();
-	for(int i = rotorNumber - 2;i >= 0;i --){
-		if(rotors[i+1].rotateNext()) rotors[i].rotate();
-		else break;
+	if(rotorNumber > 0){
+		rotors[rotorNumber-1].rotate();
+		for(int i = rotorNumber - 2;i >= 0;i --){
+			if(rotors[i+1].rotateNext()) rotors[i].rotate();
+			else break;
+		}
 	}
 	//plugboard
 	int tmp = plugboard.getOutput(l);
