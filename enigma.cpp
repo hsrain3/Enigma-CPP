@@ -61,7 +61,7 @@ char Enigma::encrypt(char letter){
 	//plugboard	
 	//
 	int tmp = plugboard.getOutput(l);
-	for(int i = rotorNumber - 1;i >= 0;i ++){
+	for(int i = rotorNumber - 1;i >= 0;i --){
 		tmp = rotors[i].getOutputForward(tmp);
 	}
 	tmp = reflector.getOutput(tmp);
@@ -71,7 +71,7 @@ char Enigma::encrypt(char letter){
 	tmp = plugboard.getOutput(tmp);
 	//rotate for next
 	rotors[rotorNumber-1].rotate();
-	for(int i = rotorNumber - 2;i >= 0;i ++){
+	for(int i = rotorNumber - 2;i >= 0;i --){
 		if(rotors[i+1].rotateNext()) rotors[i].rotate();
 		else break;
 	}
