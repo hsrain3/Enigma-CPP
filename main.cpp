@@ -17,7 +17,7 @@ int main(int argc, char** argv){
 		cout<<c;
 		cin>>ws;
 	}
-	cout<<endl;
+//	cout<<endl;
 	exit(NO_ERROR);
 
 	return 0;
