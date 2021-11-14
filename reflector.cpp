@@ -8,7 +8,7 @@ Reflector::Reflector(){}
 Reflector::~Reflector(){}
 void Reflector::inputMap(const char* filename){
 	if(!checkNumeric(filename)){
-		cerr<<"Non numeric character in reflector file "<<filename<<endl;
+		cerr<<"Non-numeric character in reflector file "<<filename<<endl;
 		exit(NON_NUMERIC_CHARACTER);
 	}
 	ifstream in;
