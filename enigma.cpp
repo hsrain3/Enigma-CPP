@@ -31,7 +31,7 @@ Enigma::~Enigma(){}
 void Enigma::configRotorPos(const char* filename){
 	if(rotorNumber == 0) return;
 	if(!checkNumeric(filename)) {
-		cerr<<"Non numeric character in rotor position file "<<filename<<endl;
+		cerr<<"Non-numeric character in rotor position file "<<filename<<endl;
 		exit(NON_NUMERIC_CHARACTER);
 	}
 	ifstream in;
