@@ -8,7 +8,7 @@ Reflector::Reflector(){}
 Reflector::~Reflector(){}
 void Reflector::inputMap(const char* filename){
 	if(!checkNumeric(filename)){
-		cout<<"Non numeric character"<<endl;
+		cerr<<"Non numeric character in reflector file "<<filename<<endl;
 		exit(NON_NUMERIC_CHARACTER);
 	}
 	ifstream in;
@@ -17,23 +17,27 @@ void Reflector::inputMap(const char* filename){
 	int a,b;
 	in>>a;
 		
-	if(!in.eof()) in>>b;
-	else {
-		cout<<"Incorrect number of reflector parameters"<<endl;
+	if(in.eof()) {
+		cerr<<"Insufficient number of mappings in reflector file "<<filename<<endl;
+		exit(INCORRECT_NUMBER_OF_REFLECTOR_PARAMETERS);
+	}
+	in>>b;
+	if(in.eof()){
+		cerr<<"Incorrect (odd) number of mappings in reflector file "<<filename<<endl;
 		exit(INCORRECT_NUMBER_OF_REFLECTOR_PARAMETERS);
 	}
 	while(!in.eof()){
 		count++;
 		if(count > 13) {
-			cout<<"Incorrect number of reflector parameters"<<endl;
+			cerr<<"Incorrect number of reflector parameters"<<endl;
 			exit(INCORRECT_NUMBER_OF_REFLECTOR_PARAMETERS);
 		}
 		if(map1.count(a)||a == b||map2.count(b)){
-			cout<<"Invalid reflector mapping"<<endl;
+			cerr<<"Invalid reflector mapping"<<endl;
 	   		exit(INVALID_REFLECTOR_MAPPING);
 		}
 		if(a<0||a>25||b<0||b>25){
-			cout<<"Invalid index error in reflector"<<endl;	
+			cerr<<"Invalid index error in reflector"<<endl;	
 	   		exit(INVALID_INDEX);
 		}
 		//cout<<"debug "<<a<<b<<endl;
@@ -43,12 +47,12 @@ void Reflector::inputMap(const char* filename){
 		if(in.eof()) break;
 		in>>b;
 		if(in.eof()) {
-			cout<<"Incorrect number of reflector parameters"<<endl;
+			cerr<<"Incorrect (odd) number of parameters in reflector file "<<filename<<endl;
 			exit(INCORRECT_NUMBER_OF_REFLECTOR_PARAMETERS);
 		}	
 	}
 	if(count < 13) {
-		cout<<"Incorrect number of reflector parameters"<<endl;
+		cerr<<"Insufficient number of mappings in reflector file: "<<filename<<endl;
 		exit(INCORRECT_NUMBER_OF_REFLECTOR_PARAMETERS);
 	}
 	in.close();

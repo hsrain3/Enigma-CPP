@@ -8,7 +8,7 @@ Plugboard::Plugboard(){}
 Plugboard::~Plugboard(){}
 void Plugboard::inputMap(const char* filename){
 	if(!checkNumeric(filename)){
-		cout<<"Input Non numeric character"<<endl;
+		cerr<<"Non-numeric character in plugboard file "<<filename<<endl;
 		exit(NON_NUMERIC_CHARACTER);
 	} 
 	ifstream in;
@@ -19,7 +19,7 @@ void Plugboard::inputMap(const char* filename){
 	in>>b;
 	
 	if(in.eof()) {
-		cout<<"Incorrect number of plugboard parameters"<<endl;
+		cerr<<"Incorrect number of parameters in plugboard file "<<filename<<endl;
 		exit(INCORRECT_NUMBER_OF_PLUGBOARD_PARAMETERS);
 	}
 	while(!in.eof()){
@@ -38,7 +38,7 @@ void Plugboard::inputMap(const char* filename){
 		if(in.eof()) break;
 		in>>b;
 		if(in.eof()) {
-			cout<<"Incorrect number of plugboard parameters"<<endl;
+			cerr<<"Incorrect number of parameters in plugboard file "<<filename<<endl;
 			exit(INCORRECT_NUMBER_OF_PLUGBOARD_PARAMETERS);
 		}	
 	}

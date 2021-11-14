@@ -6,20 +6,16 @@
 using namespace std;
 Enigma::Enigma(int argc,char** argv){
 	if(argc < 4){
-		cout<<"Insuffieient number of parameters"<<endl;
+		cerr<<"usage: enigma plugboard-file reflector-file (<rotor-file>)* rotor-positions"<<endl;
 		exit(INSUFFICIENT_NUMBER_OF_PARAMETERS);
 
 	}
 	rotorNumber = argc - 4;
-	if(rotorNumber < 0) {
-		cout<<"Insufficient number of parameters"<<endl;
-		exit(INSUFFICIENT_NUMBER_OF_PARAMETERS);
-	}
 	plugboard.inputMap(argv[1]);
 	reflector.inputMap(argv[2]);
 	configRotorPos(argv[argc-1]);
 	if(rotorPos.size() < rotorNumber) {
-		cout<<"No rotor starting position"<<endl;
+		cerr<<"No rotor starting position"<<endl;
 		exit(NO_ROTOR_STARTING_POSITION);
 	}
 	// initiate rotors
@@ -35,7 +31,7 @@ Enigma::~Enigma(){}
 void Enigma::configRotorPos(const char* filename){
 	if(rotorNumber == 0) return;
 	if(!checkNumeric(filename)) {
-		cout<<"Non numeric character"<<endl;
+		cerr<<"Non numeric character in rotor position file "<<filename<<endl;
 		exit(NON_NUMERIC_CHARACTER);
 	}
 	ifstream in;
@@ -44,7 +40,7 @@ void Enigma::configRotorPos(const char* filename){
 	in>>tmp;
 	while(!in.eof()){	
 		if(tmp <0 ||tmp > 25){
-			cout<<"Invalid index in"<<endl;
+			cerr<<"Invalid index in"<<endl;
 			exit(INVALID_INDEX);
 		}
 		rotorPos.push_back(tmp);

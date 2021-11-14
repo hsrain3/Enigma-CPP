@@ -13,7 +13,7 @@ Rotor::Rotor(int startPos){
 Rotor::~Rotor(){}
 void Rotor::inputRotor(const char* filename){
 	if(!checkNumeric(filename)) {
-		cout<<"Non numeric character"<<endl;
+		cerr<<"Non-numeric character for mapping in rotor file "<<filename<<endl;
 		exit(NON_NUMERIC_CHARACTER);
 	}
 	ifstream in;
@@ -24,11 +24,11 @@ void Rotor::inputRotor(const char* filename){
 	unordered_set<int>tmp;
 	while(i<26){
 		if(tmp.count(a)||in.eof()) {
-			cout<<"Invalid rotor mapping"<<endl;
+			cerr<<"Invalid rotor mapping"<<endl;
 			exit(INVALID_ROTOR_MAPPING);
 		}
 		if(a<0||a>25) {
-			cout<<"Invalid index in rotor config"<<endl;
+			cerr<<"Invalid index in rotor config"<<endl;
 			exit(INVALID_INDEX);
 		}
 		tmp.insert(a);
@@ -41,7 +41,7 @@ void Rotor::inputRotor(const char* filename){
 	while(!in.eof()){
 		in>>a;
 		if(a<0||a>25) {
-			cout<<"Invalid index in rotor config"<<endl;
+			cerr<<"Invalid index in rotor config"<<endl;
 			exit(INVALID_INDEX);
 		}
 		notchPos[(a-absPos+length)%length] = 1;
